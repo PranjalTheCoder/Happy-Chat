@@ -41,4 +41,14 @@ const sendToken = (res, user, code, message) => {
   };
 // sendToken("sndjv", {_id: "sdvsv"}, 201, "User Maa Chudaye");
 
-export { connectDB, sendToken, cookieOptions };
+
+
+const emitEvent = (req, event, users, data) => {
+  console.log("Emmiting Event", event);
+};
+
+const deletFilesFromCloudinary = async (public_ids) => {
+  //delete files from Cloudinary
+};
+
+export { connectDB, sendToken, cookieOptions, emitEvent, deletFilesFromCloudinary };

@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
+// import { createUser } from "./seeders/user.js";
+// import { createGroupChats, createMessagesInAChat, createSingleChats } from "./seeders/chat.js";
 
 
 dotenv.config({
@@ -18,6 +20,17 @@ const port = process.env.PORT || 3000;
 
 
 connectDB(mongoURI);
+// createUser(10);
+//create 10 sample users from faker
+
+//temporary create single chat from seeders chat.js
+// createSingleChats(10);
+// // temp create group chat from seeders using faker
+// createGroupChats(10);
+// createMessagesInAChat("679169ffbcdaaae5d3857c10", 50);
+
+
+
 
 
 const app = express();
