@@ -1,6 +1,9 @@
 import { compare } from "bcrypt";
 import { User }  from "../models/user.js";
-import { cookieOptions, sendToken } from "../utils/features.js";
+import { 
+    cookieOptions, 
+    sendToken 
+} from "../utils/features.js";
 import { TryCatch } from "../middlewares/error.js";
 import { ErrorHandler } from "../utils/utility.js";
 //create a new user and save it to the database
@@ -8,10 +11,15 @@ import { ErrorHandler } from "../utils/utility.js";
 
 
 
-const newUser = async (req, res) => {
+const newUser = TryCatch(async (req, res) => {
     const { name, username, password, bio } = req.body
 //    console.log("hi user");
 //     console.log(req.body);
+    const file = req.file;
+    if (!file) return next(new ErrorHandler("Please Upload Avatar"));
+
+    const result = await uploadFilesToCloudinary([file]);
+
     const avatar = {
         public_id: "dsjsnv",
         url: "lsdl"
@@ -29,7 +37,7 @@ const newUser = async (req, res) => {
     // res.status(201).json({message: "User Created Successfully"});
     sendToken(res, user, 201, "User created");
 
-};
+});
 
 const login = TryCatch(async (req, res, next) => {
         const { username, password } = req.body;

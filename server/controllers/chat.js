@@ -1,13 +1,17 @@
-import { ALERT, NEW_ATTACHMENT, NEW_MESSAGE_ALERT, REFETCH_CHATS } from "../constants/events.js";
+import { 
+  ALERT,
+  NEW_ATTACHMENT,
+  NEW_MESSAGE, 
+  NEW_MESSAGE_ALERT, 
+  REFETCH_CHATS 
+} from "../constants/events.js";
 import { getOtherMember } from "../lib/helper.js";
 import { TryCatch } from "../middlewares/error.js";
 import { Chat } from "../models/chat.js";
 import { User } from "../models/user.js";
-import { emitEvent } from "../utils/features.js";
+import { emitEvent, deletFilesFromCloudinary, uploadFilesToCloudinary } from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
 import { Message } from "../models/message.js";
-
-
 
 const newGroupChat = TryCatch(async(req, res, next) =>{
     // hume group chat bnane ke liye do cheeze chahiye 
@@ -233,63 +237,60 @@ const getMyChats = TryCatch(async(req, res, next) =>{
       message: "Member removed successfully",
     });
   });
-  
 
-  const sendAttachments =TryCatch(async(req, res, next) => {
-
+  const sendAttachments = TryCatch(async (req, res, next) => {
     const { chatId } = req.body;
-
-  const files = req.files || [];
-
-  if (files.length < 1)
-    return next(new ErrorHandler("Please Upload Attachments", 400));
-
-  if (files.length > 5)
-    return next(new ErrorHandler("Files Can't be more than 5", 400));
-
-  const [chat, me] = await Promise.all([
-    Chat.findById(chatId),
-    User.findById(req.user, "name"),
-  ]);
-
-  if (!chat) return next(new ErrorHandler("Chat not found", 404));
-
-  if (files.length < 1)
-    return next(new ErrorHandler("Please provide attachments", 400));
-
-    // Process attachments
-  const attachments = [];
-     
-    
-  const messageForDB = {
-    content: "",
-    attachments,
-    sender: me._id,
-    chat: chatId,
-  };
-
-  const messageForRealTime = {
-    ...messageForDB,
-    sender: {
-      _id: me._id,
-      name: me.name,
-    },
-  };
-
-  const message = await Message.create(messageForDB);
-
-  emitEvent(req, NEW_MESSAGE, chat.members, {
-    message: messageForRealTime,
-    chatId,
+  
+    const files = req.files || [];
+  
+    if (files.length < 1)
+      return next(new ErrorHandler("Please Upload Attachments", 400));
+  
+    if (files.length > 5)
+      return next(new ErrorHandler("Files Can't be more than 5", 400));
+  
+    const [chat, me] = await Promise.all([
+      Chat.findById(chatId),
+      User.findById(req.user, "name"),
+    ]);
+  
+    if (!chat) return next(new ErrorHandler("Chat not found", 404));
+  
+    if (files.length < 1)
+      return next(new ErrorHandler("Please provide attachments", 400));
+  
+    //   Upload files here
+    const attachments = await uploadFilesToCloudinary(files);
+  
+    const messageForDB = {
+      content: "",
+      attachments,
+      sender: me._id,
+      chat: chatId,
+    };
+  
+    const messageForRealTime = {
+      ...messageForDB,
+      sender: {
+        _id: me._id,
+        name: me.name,
+      },
+    };
+  
+    const message = await Message.create(messageForDB);
+  
+    emitEvent(req, NEW_ATTACHMENT, chat.members, {
+      message: messageForRealTime,
+      chatId,
+    });
+  
+    emitEvent(req, NEW_MESSAGE_ALERT, chat.members, { chatId });
+  
+    return res.status(200).json({
+      success: true,
+      message,
+    });
   });
-
-  emitEvent(req, NEW_MESSAGE_ALERT, chat.members, { chatId });
-
-  return res.status(200).json({
-    success: true,
-    message,
-  });
-});
 
 const getChatDetails = TryCatch(async (req, res, next) => {
   if (req.query.populate === "true") {
@@ -319,7 +320,7 @@ const getChatDetails = TryCatch(async (req, res, next) => {
       chat,
     });
   }
-});
+  });
 
 const renameGroup = TryCatch(async (req, res, next) => {
   const chatId = req.params.id;
@@ -347,7 +348,7 @@ const renameGroup = TryCatch(async (req, res, next) => {
     success: true,
     message: "Group renamed successfully",
   });
-});
+  });
 
 const deleteChat = TryCatch(async (req, res, next) => {
   const chatId = req.params.id;
@@ -395,7 +396,7 @@ const deleteChat = TryCatch(async (req, res, next) => {
     success: true,
     message: "Chat deleted successfully",
   });
-});
+  });
 
 const getMessages = TryCatch(async (req, res, next) => {
   const chatId = req.params.id;
@@ -430,10 +431,18 @@ const getMessages = TryCatch(async (req, res, next) => {
     messages: messages.reverse(),
     totalPages,
   });
-});
+  });
  
 export {
-  addMembers, getMyChats,
-  getMyGroups, leaveGroup, newGroupChat, removeMember, sendAttachments,
-  getChatDetails,renameGroup,deleteChat, getMessages
+  addMembers, 
+  getMyChats,
+  getMyGroups, 
+  leaveGroup, 
+  newGroupChat, 
+  removeMember, 
+  sendAttachments,
+  getChatDetails,
+  renameGroup,
+  deleteChat, 
+  getMessages
 };

@@ -29,6 +29,21 @@ Agar aapko koi file bhejni to vo bhi bhej skte ho aur mene yha limit set kr rkhi
 Gitbook -> gives us the idea 
 
 
+we are using express validator
+user can perform these operations with chats and group chat
+{ addMembers, 
+  getMyChats,
+  getMyGroups, 
+  leaveGroup, 
+  newGroupChat, 
+  removeMember, 
+  sendAttachments,
+  getChatDetails,
+  renameGroup,
+  deleteChat, 
+  getMessages}
+
+
 Main Features to add in the Chat app
 1. Users can register/log in with a username
 2. Users can search for a user
