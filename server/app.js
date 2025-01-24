@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 import userRoute from "./routes/user.js";
 import chatRoute from "./routes/chat.js";
+import adminRoute from "./routes/admin.js";
 // import { createUser } from "./seeders/user.js";
 // import { createGroupChats, createMessagesInAChat, createSingleChats } from "./seeders/chat.js";
 
@@ -17,7 +18,8 @@ dotenv.config({
 
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 3000;
-
+const envMode = process.env.NODE_ENV.trim() || "PRODUCTION";
+const adminSecretKey = process.env.ADMIN_SECRET_KEY || "PranjalTheCoder";
 
 connectDB(mongoURI);
 // createUser(10);
@@ -46,7 +48,7 @@ app.use(cookieParser());
 
 app.use("/user", userRoute);
 app.use("/chat", chatRoute);
-
+app.use("/admin", adminRoute);
 
 app.get("/", (req, res) => {
     res.send("Welcome to Home Page");
@@ -58,3 +60,5 @@ app.use(errorMiddleware);
 app.listen(port, () => {
     console.log(`Server is Listing on the Port ${port}`);
 });
+
+export { adminSecretKey, envMode };

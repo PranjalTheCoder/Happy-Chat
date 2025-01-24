@@ -21,8 +21,8 @@ const newUser = TryCatch(async (req, res, next) => {
     const { name, username, password, bio } = req.body
 //    console.log("hi user");
 //     console.log(req.body);
-    // const file = req.file;
-    // if (!file) return next(new ErrorHandler("Please Upload Avatar"));
+    const file = req.file;
+    if (!file) return next(new ErrorHandler("Please Upload Avatar"));
 
     // const result = await uploadFilesToCloudinary([file]);
 
