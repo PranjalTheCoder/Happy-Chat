@@ -137,7 +137,13 @@ server/             # Backend/server-side code (if applicable)
     Readme.txt       # Additional documentation for the server-side code
 
 
+connect frontend with backend using socket.io-client
+npm i socket.io-client
+install react redux
+ npm i @reduxjs/toolkit react-redux
 
+ Zustand library bhr bdia hai redux se 
+ Zustand is considered a lighter, more simple state management library, ideal for smaller projects, while Redux is a robust, well-structured option better suited for large, complex applications where meticulous state management is crucial; both are commonly used with React, but Redux often requires more setup and boilerplate code due to its comprehensive architecture
 
 Schema
 User Schema Required (Name, UserName, Bio, Password(hashed), Avatar(public id, url))
@@ -252,3 +258,10 @@ import { userRoute } from "./routes/user";
 in nodejs you will give proper file name with Externsion
 import { userRoute } from "./routes/user.js"; 
 
+
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "SET NODE_ENV=PRODUCTION  && node app.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT  &&  nodemon app.js"
+  },

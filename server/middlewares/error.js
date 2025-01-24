@@ -9,7 +9,7 @@ const errorMiddleware = (err, req, res, next) => {
         err.message = `Duplicate field - ${error}`;
         err.statusCode = 400;
     }
-
+ 
     if(err.name === "CastError") {
         const errorPath = err.path;
         err.message = `Invalid Format of ${errorPath}`;

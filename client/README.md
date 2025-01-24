@@ -87,7 +87,7 @@ Messages ( Content, Sender(user_id), Chat(Chat_id), Attachments )
 
 Request (Status(String), Reciever, Sender (Both points to user))
 
-Hum Users Me Friends ki array bhi bna kste hai jisase quiries likhne me aasani hogi but data redudancy bad jayegi
+Hum Users Me Friends ki array bhi bna kste hai jisase quires likhne me aasani hogi but data redudancy bad jayegi
 hum quires aise bnayegi complex quires jisase firends array ki need nhi h usi se find kr lege
 pros: data redundant km ho gyi
 cons: quires are more complicated
