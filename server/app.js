@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 app.use(errorMiddleware);
 
 app.listen(port, () => {
-    console.log(`Server is Listing on the Port ${port}`);
+    console.log(`Server is Listing on the Port ${port} in ${envMode} mode`);
 });
 
 export { adminSecretKey, envMode };
