@@ -96,37 +96,94 @@ client/
 # 🧩 Project Structure: Backend  
 
 ```plaintext
-/server
-    /constants
-        /config.js
-        /events.js
-    /controllers
-        /admin.js
-        /chat.js
-        /user.js
-    /lib
-        /helper.js
-        /validators.js
-    /middlewares
-        /auth.js
-        /error.js
-        /multer.js
-    /models
-        /chat.js
-        /message.js
-        /request.js
-        /user.js
-    /routes
-        /admin.js
-        /chat.js
-        /user.js
-    /seeders
-        /chat.js
-        /user.js
-    /utils
-        /features.js
-        /utility.js
-    /.env
-    /app.js
-    /package-lock.json
-    /package.json
+server/
+├── constants/
+├── controllers/
+├── middlewares/
+├── modules/
+├── routes/
+├── utils/
+├── app.js
+└── package.json
+```
+
+---
+
+# 🌐 API Endpoints  
+
+## **User API**  
+- `POST /api/auth/login` – Login a user.  
+- `POST /api/auth/signup` – Register a new user.  
+- `GET /api/users/search` – Search for users.  
+
+## **Chat API**  
+- `POST /api/chats/create` – Create a new chat or group.  
+- `GET /api/chats` – Retrieve all chats for a user.  
+- `POST /api/chats/messages` – Send a new message.  
+- `GET /api/chats/messages` – Retrieve paginated messages.  
+
+## **Admin API**  
+- `GET /api/admin/stats` – Retrieve admin analytics data.  
+
+---
+
+# 📈 How It Works  
+
+1. **Infinite Scrolling**  
+   Messages load dynamically in small chunks as the user scrolls down.  
+
+2. **Real-Time Messaging**  
+   Powered by **Socket.io**, ensuring that messages and typing indicators update instantly.  
+
+3. **File Upload**  
+   Files are uploaded to **Cloudinary** and delivered efficiently.  
+
+4. **Admin Panel**  
+   Accessible via a **secret key**, providing comprehensive data visualization.  
+
+---
+
+# 🖥️ Installation  
+
+## 1. Clone the Repository  
+```bash
+git clone https://github.com/your-username/realtime-chat-app.git
+```
+## 2. Install Dependencies
+
+ - **Frontend**
+  ```bash
+  cd client  
+  npm install  
+  npm run dev
+  ```
+
+ - **Backend**
+  ```bash
+  cd server  
+  npm install  
+  npm start
+  ```
+
+- **Environment Variables**
+  Create .env files in both client and server directories with appropriate keys, including
+    - MongoDB URI
+    - JWT Secret
+    - Cloudinary API keys
+
+---
+
+## 🎨 Design Inspiration  
+This app's design combines minimalist UI components from **MUI** with animations powered by **Framer Motion**, ensuring a seamless and engaging user experience.
+
+## 🤝 Contributing  
+Contributions are welcome! Feel free to **fork** the repository and submit a **pull request**.
+
+## 📝 License  
+This project is licensed under the **MIT License**.
+
+## 🌟 Acknowledgments  
+Special thanks to the open-source community for libraries and tools like **React**, **Socket.io**, **MongoDB**, and **Cloudinary** that make projects like this possible!
+
+
+   
