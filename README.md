@@ -1,10 +1,5 @@
-# 🎉✨ **Happy-Chat** ✨🎉  
+# 💬 **Happy-Chat**   
 My ultimate **real-time chat application** powered by modern technology! 🚀  
-
----
-
-# 💬 Realtime Chat App  
-
 Experience seamless communication with our **Realtime Chat App**, a modern, feature-rich application designed for instant messaging, file sharing, and group chats. Built with the latest technologies, this app combines functionality, performance, and an engaging user interface.
 
 ---
