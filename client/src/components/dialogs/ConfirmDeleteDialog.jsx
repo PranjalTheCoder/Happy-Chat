@@ -1,5 +1,12 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import React from 'react'
+import { 
+  Button, 
+  Dialog, 
+  DialogActions, 
+  DialogContent, 
+  DialogContentText, 
+  DialogTitle 
+} from '@mui/material'
+import React from 'react';
 
 // eslint-disable-next-line no-unused-vars
 const confirmDeleteDialog = ({ open, handleClose, deleteHandler }) => {

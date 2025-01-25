@@ -265,3 +265,8 @@ import { userRoute } from "./routes/user.js";
     "start": "SET NODE_ENV=PRODUCTION  && node app.js",
     "dev": "SET NODE_ENV=DEVELOPMENT  &&  nodemon app.js"
   },
+
+correction in code
+  component 
+    dialog
+        DeleteChatMenu

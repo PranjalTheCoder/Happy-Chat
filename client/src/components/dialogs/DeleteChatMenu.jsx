@@ -1,4 +1,8 @@
-import { Menu, Stack, Typography } from "@mui/material";
+import { 
+  Menu, 
+  Stack, 
+  Typography 
+} from "@mui/material";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setIsDeleteMenu } from "../../redux/reducers/misc";
@@ -21,11 +25,11 @@ const DeleteChatMenu = ({ dispatch, deleteMenuAnchor }) => {
     (state) => state.misc
   );
 
-  const [deleteChat, _, deleteChatData] = useAsyncMutation(
+  const [deleteChat, deleteChatData] = useAsyncMutation(
     useDeleteChatMutation
   );
 
-  const [leaveGroup, __, leaveGroupData] = useAsyncMutation(
+  const [leaveGroup, leaveGroupData] = useAsyncMutation(
     useLeaveGroupMutation
   );
 
@@ -33,6 +37,7 @@ const DeleteChatMenu = ({ dispatch, deleteMenuAnchor }) => {
 
   const closeHandler = () => {
     dispatch(setIsDeleteMenu(false));
+    // eslint-disable-next-line react/prop-types
     deleteMenuAnchor.current = null;
   };
 
@@ -48,12 +53,13 @@ const DeleteChatMenu = ({ dispatch, deleteMenuAnchor }) => {
 
   useEffect(() => {
     if (deleteChatData || leaveGroupData) navigate("/");
-  }, [deleteChatData, leaveGroupData]);
+  }, [deleteChatData, leaveGroupData, navigate]);
 
   return (
     <Menu
       open={isDeleteMenu}
       onClose={closeHandler}
+      // eslint-disable-next-line react/prop-types
       anchorEl={deleteMenuAnchor.current}
       anchorOrigin={{
         vertical: "bottom",

@@ -16,9 +16,6 @@ const AdminLogin = () => {
 
   const secretKey = useInputValidation("");
 
-
-
-
   const submitHandler = (e) => {
     e.preventDefault();
     // console.log("Submit");

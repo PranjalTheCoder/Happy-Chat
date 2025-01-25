@@ -1,4 +1,12 @@
-import { Box, Drawer, Grid, IconButton, Stack, styled, Typography } from '@mui/material'
+import { 
+    Box, 
+    Drawer, 
+    Grid, 
+    IconButton, 
+    Stack, 
+    styled, 
+    Typography 
+} from '@mui/material'
 import React, { useState } from 'react'
 import { grayColor, matBlack } from '../../constants/color'
 import { 
@@ -10,7 +18,11 @@ import {
     Message as MessageIcon,
     ExitToApp as ExitToAppIcon,
  } from '@mui/icons-material'
-import { useLocation, Link as LinkComponent, Navigate } from 'react-router-dom';
+import { 
+    useLocation, 
+    Link as LinkComponent, 
+    Navigate 
+} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { adminLogout } from "../../redux/thunks/admin";
 
@@ -47,7 +59,8 @@ const adminTabs = [
     },
 ];
 
-const Sidebar = (w="100%") => {
+// eslint-disable-next-line react/prop-types
+const Sidebar = ({ w="100%" }) => {
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -70,7 +83,6 @@ const Sidebar = (w="100%") => {
                 <Link 
                 key={tab.path}
                 to={tab.path}
-                onClick={logoutHandler} //  ye syd htana pde
                 sx={
                     location.pathname === tab.path && {
                         bgcolor: matBlack,
@@ -78,8 +90,9 @@ const Sidebar = (w="100%") => {
                         ":hover" : { color: "white" },
                     }
                 }
+                // onClick={logoutHandler}
                 >
-                    <Stack direction={"row"}
+                <Stack direction={"row"}
                     alignItems={"center"}
                     spacing={"1rem"}
                     >

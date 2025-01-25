@@ -40,7 +40,7 @@ const UserItem = ({user, handler, handlerIsLoading,isAdded=false,styling ={}}) =
             <IconButton
                 size="small"
                 sx={{
-                    bgcolor : isAdded ? "error.amin" : "primary.main",
+                    bgcolor : isAdded ? "error.main" : "primary.main",
                     color: "white",
                     "&:hover": {
                         bgcolor:isAdded ? "error.dark" : "primary.dark",

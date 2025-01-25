@@ -33,6 +33,7 @@ import { removeNewMessagesAlert } from "../redux/reducers/chat";
 import { TypingLoader } from "../components/layout/Loaders";
 import { useNavigate } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 const Chat = ({ chatId, user }) => {
   const socket = getSocket();
   const dispatch = useDispatch();
@@ -101,6 +102,7 @@ const Chat = ({ chatId, user }) => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react/prop-types
     socket.emit(CHAT_JOINED, { userId: user._id, members });
     dispatch(removeNewMessagesAlert(chatId));
 
@@ -109,6 +111,7 @@ const Chat = ({ chatId, user }) => {
       setMessage("");
       setOldMessages([]);
       setPage(1);
+      // eslint-disable-next-line react/prop-types
       socket.emit(CHAT_LEAVED, { userId: user._id, members });
     };
   }, [chatId]);

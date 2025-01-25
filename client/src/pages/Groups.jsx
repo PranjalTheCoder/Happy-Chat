@@ -1,6 +1,17 @@
 import React, { lazy, Suspense,memo, useEffect, useState } from "react";
-import Grid from "@mui/material/Grid";
-import { Backdrop, Box, Button, CircularProgress, Drawer, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import { 
+  Backdrop, 
+  Box, 
+  Button, 
+  Grid,
+  CircularProgress, 
+  Drawer, 
+  IconButton, 
+  Stack, 
+  TextField, 
+  Tooltip, 
+  Typography 
+} from "@mui/material";
 import { 
   KeyboardBackspace as KeyboardBackspaceIcon, 
   Menu as MenuIcon,
@@ -50,6 +61,7 @@ const Groups = () => {
   );
   const [ updateGroup, isLoadingGroupName ] = useAsyncMutation(useRenameGroupMutation);
   const [ removeMember, isLoadingRemoveMember ] = useAsyncMutation(useRemoveGroupMemberMutation);
+  // eslint-disable-next-line no-unused-vars
   const [ deleteGroup, isLoadingDeleteGroup ] = useAsyncMutation(useDeleteChatMutation);
 
   const [ isMobileMenuOpen, setIsMobileMenuOpen ] = useState(false);
@@ -112,7 +124,7 @@ const Groups = () => {
 
   const deleteHandler = () => {
     deleteGroup("Deleting Group...", chatId);
-    console.log(" Delete Handler ");
+    // console.log(" Delete Handler ");
     closeConfirmDeleteHandler();
     navigate("/groups");
   };
@@ -172,7 +184,7 @@ const Groups = () => {
       </Tooltip>
     </>;
 
-    const GroupName = 
+    const GroupName = (
       <Stack 
           direction={"row"}
           alignItems={"center"}
@@ -181,27 +193,37 @@ const Groups = () => {
           padding={"3rem"}
       >
         {
-          isEdit ? <>
+          isEdit ? (
+          <>
             <TextField
               value={groupNameUpdatedValue}
               onChange={(e)=>setGroupNameUpdatedValue(e.target.value)}
             />
-            <IconButton onClick={updateGroupName}>
+            <IconButton 
+            onClick={updateGroupName}
+            disabled={isLoadingGroupName}>
               <DoneIcon />
             </IconButton>
-          </>: <>
+          </> 
+        ) : (
+          <>
             <Typography variant="h4">{ groupName }</Typography>
-            <IconButton onClick={()=> setIsEdit(true)}><EditIcon /></IconButton>
+            <IconButton 
+            disabled={isLoadingGroupName}
+            onClick={()=> setIsEdit(true)}>
+              <EditIcon />
+            </IconButton>
           </>
-        }
+        )}
       </Stack>
-
+    );
 
       const ButtonGroup = (
       <Stack
         direction={{
-          sm: "row",
           xs: "column-reverse",
+          sm: "row",
+          
         }}
         spacing={"1rem"}
         p={{
