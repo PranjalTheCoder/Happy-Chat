@@ -71,3 +71,22 @@ Experience seamless communication with our **Realtime Chat App**, a modern, feat
 ## 🧩 Project Structure  
 
 ### **Frontend**  
+
+```plaintext
+client/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── auth/
+│   │   ├── dialogs/
+│   │   ├── layout/
+│   │   └── shared/
+│   ├── hooks/
+│   ├── pages/
+│   ├── styles/
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
+└── vite.config.js
