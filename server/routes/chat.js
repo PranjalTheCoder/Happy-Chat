@@ -14,7 +14,15 @@ import {
     sendAttachments
 } from "../controllers/chat.js";
 import { attachmentsMulter } from "../middlewares/multer.js";
-import { addMemberValidator, chatIdValidator, newGroupValidator, removeMemberValidator, renameValidator, sendAttachmentsValidator, validateHandler } from "../lib/validators.js";
+import { 
+    addMemberValidator, 
+    chatIdValidator, 
+    newGroupValidator, 
+    removeMemberValidator, 
+    renameValidator, 
+    sendAttachmentsValidator, 
+    validateHandler 
+} from "../lib/validators.js";
 
 
 // express ke andar ek Router hoter jisase hm mini app bna skte h

@@ -24,11 +24,11 @@ const newUser = TryCatch(async (req, res, next) => {
     const file = req.file;
     if (!file) return next(new ErrorHandler("Please Upload Avatar"));
 
-    // const result = await uploadFilesToCloudinary([file]);
+    const result = await uploadFilesToCloudinary([file]);
 
     const avatar = {
-        public_id: "bhh",
-        url: "kbhbk"
+        public_id: result[0].public_id,
+        url: result[0].url,
     };
     const user = await User.create({
         name,
@@ -79,6 +79,7 @@ const login = TryCatch(async (req, res, next) => {
 const getMyProfile = TryCatch(async (req, res) => {
 
     const user = await User.findById(req.user);
+    if (!user) return next(new ErrorHandler("User not found", 404));
     res.status(200).json({
         success: true,
         user,
@@ -95,7 +96,7 @@ const logout = TryCatch(async (req, res) => {
 });
 
 const searchUser = TryCatch(async (req, res) => {
-    const { name } = req.query;
+    const { name = "" } = req.query;
   
     // Finding All my chats
     const myChats = await Chat.find({ groupChat: false, members: req.user });

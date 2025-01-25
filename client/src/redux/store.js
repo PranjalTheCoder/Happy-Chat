@@ -5,6 +5,8 @@ import miscSlice from "./reducers/misc";
 import chatSlice from "./reducers/chat";
 
 const store = configureStore({
+  // isme hme reducers pas krne hote hai ye combine reducers ki trh kaam krta hai
+  //isme hum multiple reducres de skte hai ye combine ho kr ek reducre ki trh behave krega ye toolkit ka behaviour hai
   reducer: {
     [authSlice.name]: authSlice.reducer,
     [miscSlice.name]: miscSlice.reducer,

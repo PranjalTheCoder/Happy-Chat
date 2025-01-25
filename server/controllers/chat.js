@@ -1,6 +1,5 @@
 import { 
   ALERT,
-  NEW_ATTACHMENT,
   NEW_MESSAGE, 
   NEW_MESSAGE_ALERT, 
   REFETCH_CHATS 
@@ -9,7 +8,11 @@ import { getOtherMember } from "../lib/helper.js";
 import { TryCatch } from "../middlewares/error.js";
 import { Chat } from "../models/chat.js";
 import { User } from "../models/user.js";
-import { emitEvent, deletFilesFromCloudinary, uploadFilesToCloudinary } from "../utils/features.js";
+import { 
+  emitEvent, 
+  deletFilesFromCloudinary, 
+  uploadFilesToCloudinary 
+} from "../utils/features.js";
 import { ErrorHandler } from "../utils/utility.js";
 import { Message } from "../models/message.js";
 
@@ -83,7 +86,7 @@ const getMyChats = TryCatch(async(req, res, next) =>{
   });
 
   const getMyGroups = TryCatch(async (req, res, next) =>{
-    console.log("Hi");
+    // console.log("Hi");
     const chats = await Chat.find({
       members: req.user,
       groupChat: true,
@@ -111,15 +114,12 @@ const getMyChats = TryCatch(async(req, res, next) =>{
 
     if(!chat)   return next(new ErrorHandler("Chat Not Found", 404));
 
-    if(!chat.groupChat) return next(new ErrorHandler("This is not a group chat", 
-      400
-    ));
+    if(!chat.groupChat) return next(new ErrorHandler("This is not a group chat",  400));
+
     if(chat.creator.toString() !== req.user.toString()) 
       return next (new ErrorHandler("You are not allowed to add Members", 403));
 
-    const allNewMembersPromise = members.map((i) => 
-      User.findById(i, "name")  
-    );
+    const allNewMembersPromise = members.map((i) => User.findById(i, "name")  );
     const allNewMembers = await Promise.all(allNewMembersPromise);
     
     const uniqueMembers = allNewMembers
@@ -133,7 +133,7 @@ const getMyChats = TryCatch(async(req, res, next) =>{
 
     await chat.save();
 
-    const allUsersName = newUniqueMembers.map((i) => i.name).join(", ");
+    const allUsersName = allNewMembers.map((i) => i.name).join(", ");
 
     emitEvent(
       req, 
@@ -161,9 +161,8 @@ const getMyChats = TryCatch(async(req, res, next) =>{
       
       if(!chat)   return next(new ErrorHandler("Chat Not Found", 404));
 
-    if(!chat.groupChat) return next(new ErrorHandler("This is not a group chat", 
-      400
-    ));
+    if(!chat.groupChat) return next(new ErrorHandler("This is not a group chat", 400));
+    
     if(chat.creator.toString() !== req.user.toString()) 
       return next (new ErrorHandler("You are not allowed to add Members", 403));
 
@@ -179,11 +178,13 @@ const getMyChats = TryCatch(async(req, res, next) =>{
     emitEvent(
       req, 
       ALERT,
-      chat.members,
-      `${userThatWillBeRemoved.name} has been removed from the Group`
+      chat.members,{
+      message: `${userThatWillBeRemoved.name} has been removed from the Group`,
+      chatId,
+      }
     );
 
-    emitEvent(req, REFETCH_CHATS, chat.members);
+    emitEvent(req, REFETCH_CHATS, allChatMembers);
 
     return res.status(200).json({
       success: true,
@@ -219,22 +220,19 @@ const getMyChats = TryCatch(async(req, res, next) =>{
     chat.members = remainingMembers;
   
     // Save the chat and find the user leaving
-    await chat.save();
-    const user = await User.findById(req.user, "name");
+    const [user] = await Promise.all([
+      User.findById(req.user, "name"),
+      chat.save(),
+    ]);
   
-    emitEvent(
-      req,
-      ALERT,
-      chat.members,
-      `User ${user.name} has left the group`
-    );
-  
-    // Uncomment if required
-    // emitEvent(req, REFETCH_CHATS, chat.members);
+    emitEvent(req, ALERT, chat.members, {
+      chatId,
+      message: `User ${user.name} has left the group`,
+    });
   
     return res.status(200).json({
       success: true,
-      message: "Member removed successfully",
+      message: "Leave Group Successfully",
     });
   });
 
@@ -279,7 +277,7 @@ const getMyChats = TryCatch(async(req, res, next) =>{
   
     const message = await Message.create(messageForDB);
   
-    emitEvent(req, NEW_ATTACHMENT, chat.members, {
+    emitEvent(req, NEW_MESSAGE, chat.members, {
       message: messageForRealTime,
       chatId,
     });

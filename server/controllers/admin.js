@@ -24,7 +24,7 @@ const adminLogin = TryCatch(async (req, res, next) => {
     })
     .json({
       success: true,
-      message: "Authenticated Successfully, Welcome BOSS",
+      message: "Authenticated Successfully, Welcome Bro",
     });
 });
 

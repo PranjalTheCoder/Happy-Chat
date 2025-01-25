@@ -15,6 +15,7 @@ import { userExists } from "../redux/reducers/auth";
 const Login = () => {
   // agr isLogin true to Login ka page pr aayege aur agr false hai to register ke page pr aayege dono isme he hoge (Login+Register)
   const [isLogin, setIsLogin] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
   const toggleLogin = () => setIsLogin((prev) => !prev);
 

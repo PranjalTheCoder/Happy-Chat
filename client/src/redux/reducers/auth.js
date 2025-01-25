@@ -11,11 +11,13 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
+  reducers: { 
+    //isko dispatch krege to user hai
     userExists: (state, action) => {
       state.user = action.payload;
       state.loader = false;
     },
+    //isko krege to user nhi hai
     userNotExists: (state) => {
       state.user = null;
       state.loader = false;

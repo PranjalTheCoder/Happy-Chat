@@ -37,6 +37,9 @@ const App = () => {
 
   useEffect(() => {
     axios
+    // here we connect frontend with backend with me api /user
+    // hum yha async function bhi use kr skte but 
+    // but here we are using promise because syntax achhha lgega
       .get(`${server}/api/v1/user/me`, { withCredentials: true })
       .then(({ data }) => dispatch(userExists(data.user)))
       .catch(() => dispatch(userNotExists()));
