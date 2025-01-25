@@ -90,3 +90,43 @@ client/
 │   └── main.jsx
 ├── package.json
 └── vite.config.js
+```
+
+### **Backend**
+# 🧩 Project Structure: Backend  
+
+```plaintext
+/server
+    /constants
+        /config.js
+        /events.js
+    /controllers
+        /admin.js
+        /chat.js
+        /user.js
+    /lib
+        /helper.js
+        /validators.js
+    /middlewares
+        /auth.js
+        /error.js
+        /multer.js
+    /models
+        /chat.js
+        /message.js
+        /request.js
+        /user.js
+    /routes
+        /admin.js
+        /chat.js
+        /user.js
+    /seeders
+        /chat.js
+        /user.js
+    /utils
+        /features.js
+        /utility.js
+    /.env
+    /app.js
+    /package-lock.json
+    /package.json
