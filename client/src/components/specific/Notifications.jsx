@@ -64,7 +64,7 @@ const Notifications = () => {
                 <NotificationItem
                   sender={sender}
                   _id={_id}
-                  handle={friendRequestHandler}
+                  handler={friendRequestHandler}
                   key={_id}
                 />
               ))
