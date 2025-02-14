@@ -9,6 +9,7 @@ import { adminSecretKey } from "../app.js";
 
 const adminLogin = TryCatch(async (req, res, next) => {
   const { secretKey } = req.body;
+  // const x=0;
 
   const isMatched = secretKey === adminSecretKey;
 
