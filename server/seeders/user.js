@@ -17,7 +17,7 @@ const createUser = async (numUsers) => {
         },
       });
       usersPromise.push(tempUser);
-     
+     console.log(tempUser);
     }
 
     await Promise.all(usersPromise);
