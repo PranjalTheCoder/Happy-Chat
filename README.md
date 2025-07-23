@@ -148,7 +148,6 @@ server/
 ## 1. Clone the Repository  
 ```bash
 git clone https://github.com/PranjalTheCoder/Happy-Chat.git
-https://github.com/PranjalTheCoder/Happy-Chat.git
 ```
 ## 2. Install Dependencies
 
