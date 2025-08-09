@@ -173,17 +173,6 @@ git clone https://github.com/PranjalTheCoder/Happy-Chat.git
 
 ---
 
-## 🎨 Design Inspiration  
-This app's design combines minimalist UI components from **MUI** with animations powered by **Framer Motion**, ensuring a seamless and engaging user experience.
-
-## 🤝 Contributing  
-Contributions are welcome! Feel free to **fork** the repository and submit a **pull request**.
-
-## 📝 License  
-This project is licensed under the **MIT License**.
-
-## 🌟 Acknowledgments  
-Special thanks to the open-source community for libraries and tools like **React**, **Socket.io**, **MongoDB**, and **Cloudinary** that make projects like this possible!
 
 
    
